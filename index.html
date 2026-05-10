@@ -1245,7 +1245,7 @@
         </div>
         <div>
           <div class="lbl">Phone</div>
-          <div class="val">+91 94964 64583</div>
+          <a href="tel:+919496464583" class="val">+91 94964 64583</a>
         </div>
       </div>
       <div class="contact-row">
@@ -1266,62 +1266,140 @@
           <div class="val">Thrissur, Kerala, India</div>
         </div>
       </div>
+    <!-- WhatsApp Row - Matching Phone Design -->
+      <div class="contact-row">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.8">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.198.297-.767.966-.94 1.164-.173.198-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.485-.888-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.372-.025-.522-.075-.15-.669-1.612-.917-2.207-.242-.579-.487-.5-.67-.51-.173-.008-.372-.01-.572-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+            <path d="M12 2C6.48 2 2 6.59 2 12.253c0 2.04.61 3.934 1.66 5.492L2 22l4.4-1.155c1.48.81 3.21 1.27 5.1 1.27 5.52 0 10-4.59 10-10.253C22 6.59 17.52 2 12 2z"/>
+          </svg>
+        </div>
+        <div>
+          <div class="lbl">WhatsApp</div>
+          <a href="https://wa.me/919496464583" target="_blank" class="val">+91 94964 64583</a>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="contact-form-side">
+  <!-- CONTACT FORM -->
+  <form id="contactForm" class="contact-form-side">
+    
     <div class="form-row">
       <div class="form-group">
         <label>Your Name</label>
-        <input type="text" placeholder="John Abraham">
+        <input type="text" name="name" placeholder="John Abraham" required>
       </div>
       <div class="form-group">
         <label>Phone Number</label>
-        <input type="tel" placeholder="+91 98765 43210">
+        <input type="tel" name="phone" placeholder="+91 98765 43210" required>
       </div>
     </div>
+
     <div class="form-group">
       <label>Email Address</label>
-      <input type="email" placeholder="hello@example.com">
+      <input type="email" name="email" placeholder="hello@example.com" required>
     </div>
+
     <div class="form-group">
       <label>Project Type</label>
-      <select>
+      <select name="projectType" required>
         <option value="" disabled selected>Select a service</option>
-        <option>Residential Interiors</option>
-        <option>Modular Kitchen Design</option>
-        <option>Living Room Design</option>
-        <option>Bedroom Interiors</option>
-        <option>Office & Commercial Spaces</option>
-        <option>Space Planning</option>
-        <option>Furniture & Material Consultation</option>
-        <option>3D Design Support</option>
-        <option>Renovation Solutions</option>
+        <option value="Residential Interiors">Residential Interiors</option>
+        <option value="Modular Kitchen Design">Modular Kitchen Design</option>
+        <option value="Living Room Design">Living Room Design</option>
+        <option value="Bedroom Interiors">Bedroom Interiors</option>
+        <option value="Office & Commercial">Office & Commercial</option>
+        <option value="Space Planning">Space Planning</option>
+        <option value="Furniture & Materials">Furniture & Materials</option>
+        <option value="3D Design Support">3D Design Support</option>
+        <option value="Renovation">Renovation Solutions</option>
       </select>
     </div>
+
     <div class="form-row">
       <div class="form-group">
         <label>Budget Range</label>
-        <select>
+        <select name="budget" required>
           <option value="" disabled selected>Select budget</option>
-          <option>Under ₹5 Lakhs</option>
-          <option>₹5 – ₹15 Lakhs</option>
-          <option>₹15 – ₹30 Lakhs</option>
-          <option>₹30 Lakhs+</option>
+          <option value="Under 5 Lakhs">Under ₹5 Lakhs</option>
+          <option value="5-15 Lakhs">₹5 – ₹15 Lakhs</option>
+          <option value="15-30 Lakhs">₹15 – ₹30 Lakhs</option>
+          <option value="30 Lakhs+">₹30 Lakhs+</option>
         </select>
       </div>
       <div class="form-group">
         <label>Space Size (sq ft)</label>
-        <input type="text" placeholder="e.g. 1200">
+        <input type="number" name="spaceSize" placeholder="e.g. 1200" min="100">
       </div>
     </div>
+
     <div class="form-group">
-      <label>Tell Us More</label>
-      <textarea placeholder="Describe your vision, style preferences, or any specific requirements..."></textarea>
+      <label>Tell Us More About Your Project</label>
+      <textarea name="details" placeholder="Describe your vision, style preferences, timeline, or any specific requirements..." rows="5"></textarea>
     </div>
-    <button class="btn-gold" onclick="this.textContent='Request Submitted ✓'; this.style.background='#5C5649'">
-      Submit Your Request
-    </button>
-  </div>
+
+    <!-- Honeypot Anti-spam -->
+    <input type="text" name="_gotcha" style="display:none">
+
+    <button class="btn-gold" type="submit" id="submitBtn">Submit Your Request</button>
+  </form>
+  <script>
+  const form = document.getElementById('contactForm');
+  const submitBtn = document.getElementById('submitBtn');
+
+  form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      // Disable button and show loading state
+      const originalText = submitBtn.textContent;
+      submitBtn.textContent = 'Submitting...';
+      submitBtn.disabled = true;
+      submitBtn.style.background = '#8C8579';
+
+      // Get your Formspree endpoint
+      const formspreeEndpoint = "https://formspree.io/f/mgodpgko";   // ← CHANGE THIS
+
+      try {
+          const formData = new FormData(form);
+          
+          const response = await fetch(formspreeEndpoint, {
+              method: 'POST',
+              body: formData,
+              headers: {
+                  'Accept': 'application/json'
+              }
+          });
+
+          if (response.ok) {
+              // Success!
+              submitBtn.textContent = 'Request Submitted Successfully ✓';
+              submitBtn.style.background = '#5C5649';
+              
+              // Reset form after 3 seconds
+              setTimeout(() => {
+                  form.reset();
+                  submitBtn.textContent = originalText;
+                  submitBtn.disabled = false;
+                  submitBtn.style.background = '';
+              }, 4000);
+              
+          } else {
+              throw new Error('Submission failed');
+          }
+
+      } catch (error) {
+          // Error handling
+          submitBtn.textContent = 'Something went wrong. Try again.';
+          submitBtn.style.background = '#9B5A5A';
+          
+          setTimeout(() => {
+              submitBtn.textContent = originalText;
+              submitBtn.disabled = false;
+              submitBtn.style.background = '';
+          }, 4000);
+      }
+  });
+  </script>
 </section>
 
 <!-- FOOTER -->
